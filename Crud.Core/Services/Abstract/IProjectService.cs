@@ -8,7 +8,7 @@ namespace Crud.Core.Services.Abstract
     public interface IProjectService
     {
         Task<IEnumerable<ProjectDao>> GetAllProjects();
-        Task<ProjectDao> GetProjectById();
+        Task<ProjectDao> GetProjectById(int id);
         Task<ProjectDao> CreateProject(ProjectDao project);
         Task UpdateProject(ProjectDao projectToUpdate,ProjectDao project);
         Task DeleteProject(ProjectDao project);

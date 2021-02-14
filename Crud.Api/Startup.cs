@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Crud.Core;
+using Crud.Core.Services.Abstract;
 using Crud.Data;
+using Crud.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Crud.Api
 {
@@ -29,7 +32,14 @@ namespace Crud.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "GenericCrud", Version = "v1" });
+            });
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IPluginService, PluginService>();
+            services.AddTransient<IProjectService, ProjectService>();
             services.AddDbContext<CrudDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection"), x => x.MigrationsAssembly("Crud.Data"))); 
         }
@@ -41,7 +51,12 @@ namespace Crud.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = "";
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "GenericCrud v1");
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
