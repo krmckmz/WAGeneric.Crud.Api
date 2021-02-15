@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Crud.Api.Model.Dto;
+using Crud.Api.Validators;
 using Crud.Core;
 using Crud.Core.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,21 @@ namespace Crud.Api.Controllers
             var plugin = await _pluginService.GetPluginById(id);
             var mappedPlugin = _mapper.Map<PluginDao, PluginDto>(plugin);
             return Ok(mappedPlugin);
+        }
+        [HttpPost("")]
+        public async Task<ActionResult<PluginDto>> CreatePlugin([FromBody] SavePluginDto savePluginResource)
+        {
+            var validator = new SavePluginResourceValidator();
+            var validationResult = await validator.ValidateAsync(savePluginResource);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var pluginToCreate = _mapper.Map<SavePluginDto, PluginDao>(savePluginResource);
+            var createdPlugin = await _pluginService.CreatePlugin(pluginToCreate);
+            var plugin = await _pluginService.GetPluginById(createdPlugin.Id);
+            var pluginResource = _mapper.Map<PluginDao, PluginDto>(plugin);
+
+            return Ok(pluginResource);
         }
     }
 }
