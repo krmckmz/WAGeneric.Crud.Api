@@ -52,5 +52,43 @@ namespace Crud.Api.Controllers
 
             return Ok(pluginResource);
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PluginDto>> UpdatePlugin(int id, [FromBody] SavePluginDto savePluginDto)
+        {
+            var validator = new SavePluginResourceValidator();
+            var validationResult = await validator.ValidateAsync(savePluginDto);
+
+            bool requestIsInvalid = id == 0 || !validationResult.IsValid ? true : false;
+            if (requestIsInvalid)
+                return BadRequest(validationResult.Errors);
+
+            var pluginToBeUpdated = await _pluginService.GetPluginById(id);
+            if (pluginToBeUpdated == null)
+                return NotFound();
+
+            var plugin = _mapper.Map<SavePluginDto, PluginDao>(savePluginDto);
+
+            await _pluginService.UpdatePlugin(pluginToBeUpdated, plugin);
+
+            var updatedPlugin = await _pluginService.GetPluginById(id);
+            var mappedPlugin = _mapper.Map<PluginDao, PluginDto>(updatedPlugin);
+
+            return Ok(mappedPlugin);
+
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePlugin(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+
+            var pluginToDelete = _pluginService.GetPluginById(id);
+            if (pluginToDelete == null)
+                return NotFound();
+
+            await _pluginService.DeletePlugin(pluginToDelete.Result);
+
+            return NoContent();
+        }
     }
 }

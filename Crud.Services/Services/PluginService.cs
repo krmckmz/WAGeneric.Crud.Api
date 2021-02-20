@@ -24,7 +24,7 @@ namespace Crud.Services.Services
 
         public async Task DeletePlugin(PluginDao plugin)
         {
-            _unitOfWork.Plugins.Remove(plugin);
+             _unitOfWork.Plugins.Remove(plugin);
             await _unitOfWork.CommitAsync();
         }
 

@@ -10,6 +10,7 @@ namespace Crud.Api.Mapping
 {
     public class MappingProfile:Profile
     {
+
         public MappingProfile()
         {
             CreateMap<PluginDao, PluginDto>();
