@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crud.Core
+﻿namespace Crud.Core
 {
     public class PluginDao
     {

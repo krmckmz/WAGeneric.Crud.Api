@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using Crud.Api.Model.Dto;
 using Crud.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Crud.Api.Mapping
+namespace Crud.Api
 {
     public class MappingProfile:Profile
     {
-
         public MappingProfile()
         {
             CreateMap<PluginDao, PluginDto>();

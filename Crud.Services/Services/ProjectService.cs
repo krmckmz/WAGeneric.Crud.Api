@@ -1,10 +1,9 @@
 ﻿using Crud.Core;
 using Crud.Core.Services.Abstract;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Crud.Services.Services
+namespace Crud.Services
 {
     public class ProjectService : IProjectService
     {

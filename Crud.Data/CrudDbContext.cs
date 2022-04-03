@@ -1,5 +1,4 @@
 ﻿using Crud.Core;
-using Crud.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Crud.Data

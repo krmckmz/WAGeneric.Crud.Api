@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Crud.Api.Model.Dto;
-using Crud.Api.Validators;
 using Crud.Core;
-using Crud.Core.Services.Abstract;
+using Crud.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,14 +19,16 @@ namespace Crud.Api.Controllers
             _mapper = mapper;
 
         }
+
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<PluginDto>>> GetAllPlugins()
         {
-            var plugins = await _pluginService.GetAllWithProject();
+            var plugins = await _pluginService.GetAllPluginsWithProject();
             var mappedPlugins = _mapper.Map<IEnumerable<PluginDao>, IEnumerable<PluginDto>>(plugins);
 
             return Ok(mappedPlugins);
         }
+
         [HttpGet("id")]
         public async Task<ActionResult<PluginDto>> GetPluginById(int id)
         {
@@ -37,6 +36,7 @@ namespace Crud.Api.Controllers
             var mappedPlugin = _mapper.Map<PluginDao, PluginDto>(plugin);
             return Ok(mappedPlugin);
         }
+
         [HttpPost("")]
         public async Task<ActionResult<PluginDto>> CreatePlugin([FromBody] SavePluginDto savePluginResource)
         {
@@ -52,6 +52,7 @@ namespace Crud.Api.Controllers
 
             return Ok(pluginResource);
         }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<PluginDto>> UpdatePlugin(int id, [FromBody] SavePluginDto savePluginDto)
         {
@@ -76,8 +77,9 @@ namespace Crud.Api.Controllers
             return Ok(mappedPlugin);
 
         }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlugin(int id)
+        public async Task<IActionResult> DeletePluginById(int id)
         {
             if (id == 0)
                 return BadRequest();

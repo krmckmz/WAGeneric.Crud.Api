@@ -1,4 +1,4 @@
-﻿namespace Crud.Api.Model.Dto
+﻿namespace Crud.Api
 {
     public class SavePluginDto
     {

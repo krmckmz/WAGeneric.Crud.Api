@@ -1,11 +1,8 @@
 ﻿using Crud.Core;
-using Crud.Core.Services.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Crud.Services.Services
+namespace Crud.Services
 {
     public class PluginService : IPluginService
     {
@@ -24,23 +21,23 @@ namespace Crud.Services.Services
 
         public async Task DeletePlugin(PluginDao plugin)
         {
-             _unitOfWork.Plugins.Remove(plugin);
+            _unitOfWork.Plugins.Remove(plugin);
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<IEnumerable<PluginDao>> GetAllWithProject()
+        public async Task<IEnumerable<PluginDao>> GetAllPluginsWithProject()
         {
-            return await _unitOfWork.Plugins.GetAllWithProjects();
+            return await _unitOfWork.Plugins.GetAllPluginsWithProject();
         }
 
         public async Task<PluginDao> GetPluginById(int id)
         {
-            return await _unitOfWork.Plugins.GetByIdAsync(id);
+            return await _unitOfWork.Plugins.GetPluginWithProjectById(id);
         }
 
         public async Task<IEnumerable<PluginDao>> GetPluginsByProjectId(int projectId)
         {
-            return await _unitOfWork.Plugins.GetAllWithProjectByProjectIdAsync(projectId);
+            return await _unitOfWork.Plugins.GetAllPluginsWithProjectByProjectId(projectId);
         }
 
         public async Task UpdatePlugin(PluginDao pluginToUpdate, PluginDao plugin)

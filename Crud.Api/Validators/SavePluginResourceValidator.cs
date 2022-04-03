@@ -1,7 +1,6 @@
-﻿using Crud.Api.Model.Dto;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Crud.Api.Validators
+namespace Crud.Api
 {
     public class SavePluginResourceValidator:AbstractValidator<SavePluginDto>
     {

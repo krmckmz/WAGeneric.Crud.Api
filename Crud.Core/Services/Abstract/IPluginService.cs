@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Crud.Core;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Crud.Core.Services.Abstract
+namespace Crud.Services
 {
     public interface IPluginService
     {
-        Task<IEnumerable<PluginDao>> GetAllWithProject();
+        Task<PluginDao> CreatePlugin(PluginDao plugin);
+        Task DeletePlugin(PluginDao plugin);
+        Task<IEnumerable<PluginDao>> GetAllPluginsWithProject();
         Task<PluginDao> GetPluginById(int id);
         Task<IEnumerable<PluginDao>> GetPluginsByProjectId(int projectId);
-        Task<PluginDao> CreatePlugin(PluginDao plugin);
         Task UpdatePlugin(PluginDao pluginToUpdate, PluginDao plugin);
-        Task DeletePlugin(PluginDao plugin);
     }
 }

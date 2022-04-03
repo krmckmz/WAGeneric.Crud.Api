@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Crud.Data.Configurations
+namespace Crud.Data
 {
     public class PluginConfiguration : IEntityTypeConfiguration<PluginDao>
     {

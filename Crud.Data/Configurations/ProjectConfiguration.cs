@@ -1,9 +1,8 @@
 ﻿using Crud.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
-namespace Crud.Data.Configurations
+namespace Crud.Data
 {
     public class ProjectConfiguration : IEntityTypeConfiguration<ProjectDao>
     {

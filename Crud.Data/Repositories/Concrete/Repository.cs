@@ -19,15 +19,19 @@ namespace Crud.Data
         {
             await context.Set<T>().AddAsync(item);
         }
+        //public async Task UpdateAsync(T item)
+        //{
+        //    await context.Set<T>().Update(item);
+        //}
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-           await context.Set<T>().AddRangeAsync(entities);
+            await context.Set<T>().AddRangeAsync(entities);
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-           return context.Set<T>().Where(predicate);
+            return context.Set<T>().Where(predicate);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
